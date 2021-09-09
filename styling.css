@@ -6,14 +6,12 @@ h1 {
 }
 
 #game-area {
-		background-color: darkgray;
 		display: flex;
 		justify-content: center;
 		align-items: center;
 }
 
 #graph-canvas {
-		background-color: red;
 		position: absolute;
 }
 
