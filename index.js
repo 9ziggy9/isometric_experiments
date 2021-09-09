@@ -1,11 +1,14 @@
 window.onload = function () {
 		// Get canvas and context
-		let canvas = document.getElementById("canvas");
+		let canvas = document.getElementById("iso-canvas");
 		let context = canvas.getContext("2d");
+		let graph_canvas = document.getElementById("graph-canvas");
+		let graph_context = graph_canvas.getContext("2d");
 
 		// Fundamental geometric constants
-		const SCREEN_WIDTH = canvas.width = 0.75 * window.innerWidth;
-		const SCREEN_HEIGHT = canvas.height = 0.75 * window.innerHeight;
+		const SCREEN_WIDTH = canvas.width = graph_canvas.width = 0.75 * window.innerWidth;
+		const SCREEN_HEIGHT = canvas.height = graph_canvas.height = 0.75 * window.innerHeight;
+		const GRAPH_CELL_LENGTH = 50;
 		const TILE_WIDTH = 100;
 		const TILE_HEIGHT = 50;
 		const ANGLE = Math.atan(TILE_WIDTH / TILE_HEIGHT);
@@ -32,6 +35,9 @@ window.onload = function () {
 		const topDownGrid = createTileGrid(MAX_X, MAX_Y);
 		console.log(topDownGrid);
 		drawGrid(topDownGrid, "green");
+
+		function drawGraphLines (cell_length, s_width, s_height) {
+		}
 
 		function drawTile(x, y, color) {
 				context.save();

@@ -12,6 +12,11 @@ h1 {
 		align-items: center;
 }
 
-canvas {
-		background-color: darkgray;
+#graph-canvas {
+		background-color: red;
+		position: absolute;
+}
+
+#iso-canvas {
+		position: relative;
 }
