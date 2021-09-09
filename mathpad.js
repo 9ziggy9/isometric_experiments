@@ -20,3 +20,17 @@ console.log(ISO_Y_TILE_LENGTH);
 // Total number of fittable tiles along iso y-axis obtained via:
 const MAX_ISO_Y_TILES = Math.floor(MAX_ISO_Y / ISO_Y_TILE_LENGTH);
 console.log(MAX_ISO_Y_TILES);
+
+// Let's consider a generalized notion isometric transform from a point a_x,y,z in 3D space to a
+// point b_x,y in 2D space looking into the first octant. This description can be written via
+// rotation matrices:
+/*
+	|c_x|   | 1   0      0    || cos(B) 0 -sin(B) ||a_x|
+	|c_y| = | 0 cos(a) sin(a) ||   0    1    0    ||a_y| where a is rotation about Z and B is rotation
+	|c_z|   | 0 -sin(a) cos(a)|| sin(B) 0  cos(B) ||a_z| about X axes respectively.
+
+	The orthographic projection and therefor the points b_x,y are then obtained via:
+	|b_x|   | 1 0 0 ||c_x|
+	|b_y| = | 0 1 0 ||c_y|
+	| 0 |   | 0 0 0 ||c_z|
+*/

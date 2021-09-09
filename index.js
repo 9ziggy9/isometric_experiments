@@ -3,7 +3,7 @@ window.onload = function () {
 		let canvas = document.getElementById("canvas");
 		let context = canvas.getContext("2d");
 
-		// Fundamental geometry
+		// Fundamental geometric constants
 		const SCREEN_WIDTH = canvas.width = 0.75 * window.innerWidth;
 		const SCREEN_HEIGHT = canvas.height = 0.75 * window.innerHeight;
 		const TILE_WIDTH = 100;
