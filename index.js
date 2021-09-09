@@ -1,20 +1,32 @@
 window.onload = function () {
+		// Get canvas and context
 		let canvas = document.getElementById("canvas");
 		let context = canvas.getContext("2d");
-		const width = canvas.width = 0.75 * window.innerWidth;
-		const height = canvas.height = 0.75 * window.innerHeight;
+
+		// Fundamental geometry
+		const SCREEN_WIDTH = canvas.width = 0.75 * window.innerWidth;
+		const SCREEN_HEIGHT = canvas.height = 0.75 * window.innerHeight;
 		const TILE_WIDTH = 100;
 		const TILE_HEIGHT = 50;
+		const ANGLE = Math.atan(TILE_WIDTH / TILE_HEIGHT);
+
+		// Now, for the maximum inscribable diamond we calculate the side lengths.
+		// This places a constraint of the maximum number of tiles that can be placed in
+		// the iso-space y direction.
+		const MAX_ISO_Y = SCREEN_HEIGHT / (2 * Math.cos(ANGLE));
+
+		// We determine the total number of fittable tiles along iso-space y axis by first computing length of a tile side along the iso y-axis.
+		const ISO_Y_TILE_LENGTH = Math.sqrt(Math.pow(TILE_WIDTH / 2, 2) + Math.pow(TILE_HEIGHT / 2, 2));
+
+		// Total number of fittable tiles along iso y-axis obtained via:
+		const MAX_ISO_Y_TILES = Math.floor(MAX_ISO_Y / ISO_Y_TILE_LENGTH);
 
 		// This is will give the maximum number of fittable tiles in either direction.
-		console.log(width, height);
-		const MAX_X = Math.floor(width / TILE_WIDTH);
-		console.log(MAX_X);
-		const MAX_Y = Math.floor(height / TILE_HEIGHT);
-		console.log(MAX_Y);
+		const MAX_X = MAX_ISO_Y_TILES;
+		const MAX_Y = MAX_ISO_Y_TILES;
 
 		// Center the context
-		context.translate((MAX_X * TILE_WIDTH) / 2, 0);
+		context.translate((MAX_X * TILE_WIDTH / 1.5), 1.5);
 
 		// This is the top view of the board as expressed in Cartesian coordinates.
 		const topDownGrid = createTileGrid(MAX_X, MAX_Y);
