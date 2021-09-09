@@ -6,12 +6,20 @@ window.onload = function () {
 		const TILE_WIDTH = 100;
 		const TILE_HEIGHT = 50;
 
-		context.translate(width / 2, 50);
-		drawTile(0, 0, "green");
-		drawTile(1, 0, "blue");
-		drawTile(2, 0, "red");
-		drawTile(0, 1, "orange");
-		drawTile(0, 2, "purple");
+		// This is will give the maximum number of fittable tiles in either direction.
+		console.log(width, height);
+		const MAX_X = Math.floor(width / TILE_WIDTH);
+		console.log(MAX_X);
+		const MAX_Y = Math.floor(height / TILE_HEIGHT);
+		console.log(MAX_Y);
+
+		// Center the context
+		context.translate((MAX_X * TILE_WIDTH) / 2, 0);
+
+		// This is the top view of the board as expressed in Cartesian coordinates.
+		const topDownGrid = createTileGrid(MAX_X, MAX_Y);
+		console.log(topDownGrid);
+		drawGrid(topDownGrid, "green");
 
 		function drawTile(x, y, color) {
 				context.save();
@@ -20,6 +28,7 @@ window.onload = function () {
 				const [cartesianX, cartesianY] = mapToCartesian(x, y);
 				context.translate(cartesianX, cartesianY);
 
+				// Drawing boundary of isometric tiles.
 				context.beginPath();
 				context.moveTo(0,0);
 				context.lineTo(TILE_WIDTH / 2, TILE_HEIGHT / 2);
@@ -36,5 +45,24 @@ window.onload = function () {
 				const cartesianX = (x - y) * TILE_WIDTH / 2;
 				const cartesianY = (x + y) * TILE_HEIGHT / 2;
 				return [cartesianX, cartesianY];
+		}
+
+		function createTileGrid(limit_x, limit_y) {
+				// Forming 2-dimensional grid
+				let grid = new Array(limit_x);
+				for (let i = 0; i < limit_x; i++)
+						grid[i] = new Array(limit_y);
+				//Populating grid.
+				for (let j = 0; j < grid.length; j++)
+						for (let i = 0; i < grid[0].length; i++)
+								grid[j][i] = 1;
+				return grid;
+		}
+
+		function drawGrid(grid, color) {
+				for (let y = 0; y < grid.length; y++)
+						for (let x = 0; x < grid[0].length; x++) {
+								if (grid[y][x]) drawTile(x, y, color);
+						}
 		}
 }
