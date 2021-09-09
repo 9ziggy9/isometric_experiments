@@ -2,10 +2,11 @@ h1 {
 		display: flex;
 		justify-content: center;
 		align-content: center;
+		font-family: 'Bowlby One SC', cursive;
 }
 
 #game-area {
-		background-color: red;
+		background-color: darkgray;
 		display: flex;
 		justify-content: center;
 		align-items: center;
