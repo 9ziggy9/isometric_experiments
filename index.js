@@ -29,17 +29,19 @@ window.onload = function () {
 		// to bottom.
 		const CARTESIAN_Y_COUNT = SCREEN_HEIGHT / CARTESIAN_TILE_LENGTH;
 		const ISO_TILE_COUNT = Math.pow(CARTESIAN_Y_COUNT, 2);
+		const ISO_MAX_X = CARTESIAN_Y_COUNT;
+		const ISO_MAX_Y = CARTESIAN_Y_COUNT;
 		console.log(`${ISO_TILE_COUNT} total isometric tiles`);
 
-		// Center the context
-		context.translate((MAX_X * ISO_TILE_WIDTH / 1.5), 1.5);
+		// Center the isometric context relative to cartesian context
+		context.translate(Math.floor(SCREEN_WIDTH / 2), 0);
 
 		drawGraphLines(CARTESIAN_TILE_LENGTH, SCREEN_WIDTH, SCREEN_HEIGHT);
+		const game_grid = createBoardGrid(ISO_MAX_X, ISO_MAX_Y);
+		drawBoard(game_grid, "green");
 
-		// This is the top view of the board as expressed in Cartesian coordinates.
-		const topDownGrid = createTileGrid(MAX_X, MAX_Y);
-		drawGrid(topDownGrid, "green");
-
+		// Cartesian refernce coordinates. NOTE: This is not a representation of board space,
+		// it is merely a reference plot.
 		function drawGraphLines (cell_length, s_width, s_height) {
 				let last_x_coordinate = Math.floor(s_width / cell_length);
 				let last_y_coordinate = Math.floor(s_height / cell_length);
@@ -59,12 +61,10 @@ window.onload = function () {
 
 		function drawTile(x, y, color) {
 				context.save();
-
 				// Mapping from tile space to Cartesian coordinates.
 				const [cartesianX, cartesianY] = mapToCartesian(x, y);
 				context.translate(cartesianX, cartesianY);
 
-				// Drawing boundary of isometric tiles.
 				context.beginPath();
 				context.moveTo(0,0);
 				context.lineTo(ISO_TILE_WIDTH / 2, ISO_TILE_HEIGHT / 2);
@@ -83,7 +83,7 @@ window.onload = function () {
 				return [cartesianX, cartesianY];
 		}
 
-		function createTileGrid(limit_x, limit_y) {
+		function createBoardGrid(limit_x, limit_y) {
 				// Forming 2-dimensional grid
 				let grid = new Array(limit_x);
 				for (let i = 0; i < limit_x; i++)
@@ -95,7 +95,7 @@ window.onload = function () {
 				return grid;
 		}
 
-		function drawGrid(grid, color) {
+		function drawBoard(grid, color) {
 				for (let y = 0; y < grid.length; y++)
 						for (let x = 0; x < grid[0].length; x++) {
 								if (grid[y][x]) drawTile(x, y, color);
@@ -103,4 +103,3 @@ window.onload = function () {
 		}
 
 }
-
