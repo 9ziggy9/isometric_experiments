@@ -6,7 +6,7 @@ window.onload = function() {
     let graph_context = graph_canvas.getContext("2d");
 
     // SETTING DESIRED SCALE OF TILES
-    const CELL_SCALE = 4; // Note the lower the scale, the most tiles.
+    let CELL_SCALE = 4; // Note the lower the scale, the most tiles.
     const CARTESIAN_TILE_LENGTH = Math.pow(2, CELL_SCALE);
 
     ///////////////////////////////////////////////////////////////////////////////////////
@@ -56,16 +56,28 @@ window.onload = function() {
     const ISO_MAX_Y = CARTESIAN_Y_COUNT - 6; // FOR BLOCK CASE !!!
     console.log(`${ISO_TILE_COUNT} total isometric tiles`);
 
-		const TIME_STEP = 300;
+		let TIME_STEP = 300;
 
     // Center the isometric context relative to cartesian context and draw cartesian lines
     context.translate(Math.floor(SCREEN_WIDTH / 2), 64);
     drawGraphLines(CARTESIAN_TILE_LENGTH, SCREEN_WIDTH, SCREEN_HEIGHT);
 
-    /////////////////////////////
-    // RUN THE GOD DAMN THING //
+		////////////////////////////////////////////////////////////////////////////////////////
+		/*
+		EVENT HANDLING
+		*/
+		const spec_field = document.getElementById('set-button');
+		spec_field.addEventListener('click', (event) => {
+				event.preventDefault();
+				let freq_field = document.getElementById('freq-box');
+				TIME_STEP = freq_field.value;
+				console.log(TIME_STEP);
+		});
+
+    ///////////////////////////////////////
+    // !!!! RUN THE GOD DAMN THING !!!! //
+    /////////////////////////////////////
     run();
-    ///////////////////////////
 
     //////////////////////////////////////////////////////////////////////////////////////
     /*
@@ -112,8 +124,8 @@ window.onload = function() {
 
     function drawBlock(x, y, z) {
         const top = "#586e75";
-        const right = "#002b36";
-        const left = "#073642";
+        const left = "#002b36";
+        const right = "#073642";
         context.save();
         // Mapping from tile space to Cartesian coordinates.
         const [cartesianX, cartesianY] = mapToCartesian(x, y);
@@ -197,9 +209,7 @@ window.onload = function() {
     }
 
     async function run() {
-        console.log('generating frame ...');
         const result = await generate();
-        console.log(result);
         update();
         requestAnimationFrame(run);
     }
