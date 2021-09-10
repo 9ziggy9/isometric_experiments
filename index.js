@@ -109,9 +109,9 @@ window.onload = function() {
     }
 
     function drawBlock(x, y, z) {
-        const top = "#eeeeee";
-        const right = "#cccccc";
-        const left = "#999999";
+        const top = "#586e75";
+        const right = "#002b36";
+        const left = "#073642";
         context.save();
         // Mapping from tile space to Cartesian coordinates.
         const [cartesianX, cartesianY] = mapToCartesian(x, y);
