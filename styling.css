@@ -3,7 +3,7 @@ body {
 }
 
 h1 {
-		text-color: #b58900;
+		color: #b58900;
 		display: flex;
 		justify-content: center;
 		align-content: center;
