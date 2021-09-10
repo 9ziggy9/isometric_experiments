@@ -60,6 +60,7 @@ window.onload = function() {
     context.translate(Math.floor(SCREEN_WIDTH / 2), 64);
     drawGraphLines(CARTESIAN_TILE_LENGTH, SCREEN_WIDTH, SCREEN_HEIGHT);
 
+    /////////////////////////////
     // RUN THE GOD DAMN THING //
     run();
     ///////////////////////////
