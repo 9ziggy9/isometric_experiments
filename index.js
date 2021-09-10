@@ -56,7 +56,7 @@ window.onload = function() {
     const ISO_MAX_Y = CARTESIAN_Y_COUNT - 6; // FOR BLOCK CASE !!!
     console.log(`${ISO_TILE_COUNT} total isometric tiles`);
 
-		const TIME_STEP = 60
+		const TIME_STEP = 30;
 
     // Center the isometric context relative to cartesian context and draw cartesian lines
     context.translate(Math.floor(SCREEN_WIDTH / 2), 64);
