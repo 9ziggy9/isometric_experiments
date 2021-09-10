@@ -182,7 +182,7 @@ window.onload = function() {
 
     function generate() {
         return new Promise(resolve => {
-            setTimeout(() => resolve('success: generate frame'), 1);
+            setTimeout(() => resolve('success: generate frame'), 15);
         });
     }
 
