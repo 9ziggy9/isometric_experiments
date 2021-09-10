@@ -56,7 +56,7 @@ window.onload = function() {
     const ISO_MAX_Y = CARTESIAN_Y_COUNT - 6; // FOR BLOCK CASE !!!
     console.log(`${ISO_TILE_COUNT} total isometric tiles`);
 
-		const TIME_STEP = 30;
+		const TIME_STEP = 300;
 
     // Center the isometric context relative to cartesian context and draw cartesian lines
     context.translate(Math.floor(SCREEN_WIDTH / 2), 64);
@@ -81,13 +81,13 @@ window.onload = function() {
         for (let x = 0; x <= last_x_coordinate; x++) {
             graph_context.moveTo(x * cell_length, 0);
             graph_context.lineTo(x * cell_length, last_y_coordinate * cell_length);
-            graph_context.strokeStyle = "#859900";
+            graph_context.strokeStyle = "#2aa198";
             graph_context.stroke();
         }
         for (let y = 0; y <= last_y_coordinate; y++) {
             graph_context.moveTo(0, y * cell_length);
             graph_context.lineTo(last_x_coordinate * cell_length, y * cell_length);
-            graph_context.strokeStyle = "859900";
+            graph_context.strokeStyle = "#2aa198";
             graph_context.stroke();
         }
     }
