@@ -6,6 +6,7 @@ h1 {
 }
 
 #game-area {
+		background-color: #93a1a1;
 		display: flex;
 		justify-content: center;
 		align-items: center;
