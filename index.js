@@ -81,13 +81,13 @@ window.onload = function() {
         for (let x = 0; x <= last_x_coordinate; x++) {
             graph_context.moveTo(x * cell_length, 0);
             graph_context.lineTo(x * cell_length, last_y_coordinate * cell_length);
-            graph_context.strokeStyle = "darkgray";
+            graph_context.strokeStyle = "#859900";
             graph_context.stroke();
         }
         for (let y = 0; y <= last_y_coordinate; y++) {
             graph_context.moveTo(0, y * cell_length);
             graph_context.lineTo(last_x_coordinate * cell_length, y * cell_length);
-            graph_context.strokeStyle = "darkgray";
+            graph_context.strokeStyle = "859900";
             graph_context.stroke();
         }
     }
