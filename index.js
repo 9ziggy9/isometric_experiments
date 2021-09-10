@@ -22,7 +22,17 @@ window.onload = function() {
 
 		//NOTE: There is a bug I believe to be due to the case where SCREEN_WIDTH < 2*SCREEN_HEIGHT
 		// handling must be done to preserve the ratio in edge cases.
-
+		// W < 2H => we look for a correction d_h such that W >= 2H - d_h.
+		// This correction MUST be divisible by tile length to ensure geometry is preserved.
+		// We look for the smallest multiple m of tile length L such that W >= 2H - mL.
+		// Assume W = 2H - mL => mL = 2H - W. m = (2H - W) / L. Note, that if m is NOT an integer, we
+		// must round UP to the nearest.
+		// NOTE: Still occasional bugs for certain dimensions. Needs further examination.
+		if (SCREEN_WIDTH < 2 * SCREEN_HEIGHT) {
+				let relative_difference = (2 * SCREEN_HEIGHT - SCREEN_WIDTH) / CARTESIAN_TILE_LENGTH;
+				let m = Math.floor(relative_difference) + 1;
+				SCREEN_HEIGHT -= m * CARTESIAN_TILE_LENGTH;
+		}
     console.log(`${SCREEN_WIDTH}, ${SCREEN_HEIGHT} screen dimensions`);
 		// END SCREEN HANDLING ///////////////////////////////////////////////////////////////
 
@@ -49,7 +59,9 @@ window.onload = function() {
     context.translate(Math.floor(SCREEN_WIDTH / 2), 64);
     drawGraphLines(CARTESIAN_TILE_LENGTH, SCREEN_WIDTH, SCREEN_HEIGHT);
 
+		// RUN THE GOD DAMN THING //
 		run();
+		///////////////////////////
 
 		//////////////////////////////////////////////////////////////////////////////////////
 		/*
@@ -168,12 +180,14 @@ window.onload = function() {
 
 		function generate() {
 				return new Promise(resolve => {
-						setTimeout(() => resolve('success: generate frame'), 1000);
+						setTimeout(() => resolve('success: generate frame'), 50);
 				});
 		}
 
 		function update() {
+				//Remember, when clearing we have previously translated context.
 				context.clearRect(-Math.floor(SCREEN_WIDTH/2),-64, canvas.width, canvas.height);
+
 				const game_grid = createBoardGrid(ISO_MAX_X, ISO_MAX_Y);
 				drawBoard(game_grid, "green", "block");
 		}
