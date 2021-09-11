@@ -77,18 +77,18 @@ window.onload = function() {
         for (let x = 0; x <= last_x_coordinate; x++) {
             graph_context.moveTo(x * cell_length, 0);
             graph_context.lineTo(x * cell_length, last_y_coordinate * cell_length);
-            graph_context.strokeStyle = "#2aa198";
+            graph_context.strokeStyle = "#b58900";
             graph_context.stroke();
         }
         for (let y = 0; y <= last_y_coordinate; y++) {
             graph_context.moveTo(0, y * cell_length);
             graph_context.lineTo(last_x_coordinate * cell_length, y * cell_length);
-            graph_context.strokeStyle = "#2aa198";
+            graph_context.strokeStyle = "#b58900";
             graph_context.stroke();
         }
     }
 
-    function drawTile(x, y, color) {
+    function drawTile(x, y, iso_width, iso_height, color) {
         context.save();
         // Mapping from tile space to Cartesian coordinates.
         const [cartesianX, cartesianY] = mapToCartesian(x, y);
@@ -96,9 +96,9 @@ window.onload = function() {
 
         context.beginPath();
         context.moveTo(0, 0);
-        context.lineTo(ISO_TILE_WIDTH / 2, ISO_TILE_HEIGHT / 2);
-        context.lineTo(0, ISO_TILE_HEIGHT);
-        context.lineTo(-ISO_TILE_WIDTH / 2, ISO_TILE_HEIGHT / 2);
+        context.lineTo(iso_width / 2, iso_height / 2);
+        context.lineTo(0, iso_height);
+        context.lineTo(-iso_width / 2, iso_height / 2);
         context.closePath();
         context.fillStyle = color;
         context.fill();
@@ -169,7 +169,7 @@ window.onload = function() {
             for (let x = 0; x < grid[0].length; x++) {
                 switch (draw_mode) {
                     case 'flat':
-                        if (grid[y][x]) drawTile(x, y, color);
+                    if (grid[y][x]) drawTile(x, y, iso_width, iso_height, color);
                         break;
                     case 'block':
                         if (grid[y][x]) drawBlock(x, y, Math.random() * 4);
