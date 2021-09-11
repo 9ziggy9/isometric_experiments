@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Isometric Game</title>
+    <script src="./index.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./styling.css">
+</head>
+
+<body>
+    <header>
+        <h1>Isometric Game</h1>
+				<div id="spec-container">
+						<form id="specs">
+								<label for="freq">Frame Rate</label><br>
+								<input type="text" class="tbox" id="freq-box" value="300"></br>
+								<input id="set-button" type="submit" value="set">
+						</form> 
+				</div>
+    </header>
+    <main>
+        <div id="game-area">
+            <canvas id="graph-canvas"></canvas>
+            <canvas id="iso-canvas"></canvas>
+        </div>
+				<div id="end">
+				</div>
+    </main>
+</body>
+
+</html>
