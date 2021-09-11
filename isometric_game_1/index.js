@@ -6,7 +6,7 @@ window.onload = function() {
     let graph_context = graph_canvas.getContext("2d");
 
     // SETTING DESIRED SCALE OF TILES
-    let CELL_SCALE = 5; // Note the lower the scale, the most tiles.
+    let CELL_SCALE = 5.5; // Note the lower the scale, the most tiles.
     const CARTESIAN_TILE_LENGTH = Math.pow(2, CELL_SCALE);
 
     ///////////////////////////////////////////////////////////////////////////////////////
@@ -37,6 +37,7 @@ window.onload = function() {
     console.log(`${ISO_TILE_COUNT} total isometric tiles`);
 
     let TIME_STEP = 300;
+		let FRAME_COUNT = 0;
 
     // Center the isometric context relative to cartesian context and draw cartesian lines
     context.translate(Math.floor(SCREEN_WIDTH / 2),
@@ -89,6 +90,7 @@ window.onload = function() {
     async function run() {
         const result = await generateFrame(TIME_STEP);
         update();
+				FRAME_COUNT++;
 				requestAnimationFrame(run);
     }
 }
@@ -196,19 +198,24 @@ function createBoardGrid(limit_x, limit_y) {
     return grid;
 }
 
+function zFunk(x,y) {
+		return (1/3)*Math.pow(x, 2) + (1/3)*Math.pow(y, 2)
+}
+
 function drawBoard(grid,
 									 iso_width, iso_height,
 									 color, draw_mode, context)
 {
     for (let y = 0; y < grid.length; y++)
         for (let x = 0; x < grid[0].length; x++) {
+						console.log(zFunk(x,y));
             switch (draw_mode) {
                 case 'flat':
                     if (grid[y][x]) drawTile(x, y, iso_width, iso_height, color);
                     break;
                 case 'block':
                     if (grid[y][x])
-                        drawBlock(x, y, Math.random() * 4, iso_width, iso_height, context);
+                        drawBlock(x, y, 0.1*zFunk(x-8,y-8)%4, iso_width, iso_height, context);
                     break;
             }
         }
