@@ -1,4 +1,4 @@
 https://ziggy-isomny.netlify.app/
 
-*** Isometric Experimentation
+### Isometric Experimentation
 Making a custom isometric projective graphical library.
